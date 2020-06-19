@@ -4,6 +4,7 @@ const Koa = require('koa');
 const logger = require('koa-logger');
 const cors = require('@koa/cors');
 const router = require('./routes');
+const bodyParser = require('koa-bodyparser');
 
 const { PORT = 8888 } = process.env;
 const app = new Koa();
@@ -14,6 +15,7 @@ app.use(cors({
       return '*';
    },
 }));
+app.use(bodyParser({ jsonLimit: '10kb'}));
 app.use(router.routes());
 app.use(router.allowedMethods());
 
